@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public class Node
@@ -128,7 +128,7 @@ public class BinarySearchTree
 
             else if (root.Left != null && root.Right != null)
             {
-                var maxNode = Find(root.Right);
+                var maxNode = FindMax(root.Right);
 
                 root.Value = maxNode.Value;
                 root.Right = RemoveHelper(root.Right, maxNode.Value);
@@ -143,7 +143,7 @@ public class BinarySearchTree
         }
         return root;
     }
-    private Node Find(Node node)
+    private Node FindMax(Node node)
     {
         while (node.Left != null)
         {
@@ -161,18 +161,18 @@ public class BinarySearchTree
     }
 
 
-    public void BFS()
+    public void DFS()
     {
         InOrderTraversal(_root);
     }
 
-    private void DFS()
+    private void BFS()
     {
         var queue = new Queue<Node>(new[] { _root });
         while (queue.Count > 0)
         {
             var node = queue.Dequeue();
-            Console.Write(node.Value);
+            Console.Write(node.Value + " ");
             if (node.Left != null) { queue.Enqueue(node.Left); }
             if (node.Right != null) { queue.Enqueue(node.Right); }
         }
@@ -185,28 +185,28 @@ public class BinarySearchTree
     {
         BinarySearchTree tree = new BinarySearchTree();
 
-        tree.Add(10);
-        tree.Add(9);
-        tree.Add(8);
-        tree.Add(7);
-        
-
         tree.Add(6);
+        tree.Add(8);
+        tree.Add(4);
         tree.Add(5);
+        tree.Add(3);
+        tree.Add(7);
+        tree.Add(9);
+        tree.Del(7);
 
-        tree.Del(8);
 
-        Console.WriteLine("В глубину:");
-        tree.DFS();
-        Console.WriteLine("В ширину:");
+
+        Console.WriteLine("Обход бинарного дерева в ширину:");
         tree.BFS();
+        Console.WriteLine("Обход бинарного дерева в глубину:");
+        tree.DFS();//выполнение симметричного обхода в глубину
         Console.WriteLine();
-        Console.WriteLine(tree.Contains(10));
-        Console.WriteLine(tree.Contains(7));
+        Console.WriteLine(tree.Contains(9));
+
 
 
 
     }
 }
 
-   
+
